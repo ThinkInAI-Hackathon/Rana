@@ -64,45 +64,27 @@ def text_to_speech(text, voice_type="zh_male_M392_conversation_wvae_bigtts",
             json_response = response.json()
             print("成功解析JSON响应")
             
-            # 查找音频数据
-            audio_data = None
+            raw_data_field = json_response.get('data', '')
+            print("输出json:", raw_data_field)
             
-            # 方法1: 检查是否有直接的音频字段
-            if 'audio' in json_response and isinstance(json_response['audio'], str):
-                print("从'audio'字段提取音频数据...")
-                audio_data = base64.b64decode(json_response['audio'])
-            
-            # 方法2: 检查是否有音频URL
-            elif 'audio_url' in json_response and isinstance(json_response['audio_url'], str):
-                print(f"从URL下载音频: {json_response['audio_url']}")
-                audio_response = requests.get(json_response['audio_url'])
-                if audio_response.status_code == 200:
-                    audio_data = audio_response.content
-                else:
-                    print(f"下载音频失败: {audio_response.status_code}")
-            
-            # 方法3: 检查响应结构中的其他可能位置
-            elif 'data' in json_response and isinstance(json_response['data'], dict):
-                data_obj = json_response['data']
+
+            base64_data = raw_data_field
+
+            # 如果找到了base64编码的数据，进行解码
+            if base64_data:
+                # 检查并移除可能的base64前缀（如data:audio/mp3;base64,）
+                if ',' in base64_data:
+                    base64_data = base64_data.split(',', 1)[1]
                 
-                # 检查data对象中的音频字段
-                if 'audio' in data_obj and isinstance(data_obj['audio'], str):
-                    print("从'data.audio'字段提取音频数据...")
-                    audio_data = base64.b64decode(data_obj['audio'])
-                
-                # 检查data对象中的音频URL
-                elif 'audio_url' in data_obj and isinstance(data_obj['audio_url'], str):
-                    print(f"从URL下载音频: {data_obj['audio_url']}")
-                    audio_response = requests.get(data_obj['audio_url'])
-                    if audio_response.status_code == 200:
-                        audio_data = audio_response.content
-                    else:
-                        print(f"下载音频失败: {audio_response.status_code}")
-            
-            # 如果找不到音频数据，打印JSON结构以便调试
-            if audio_data is None:
-                print("无法在JSON响应中找到音频数据。响应结构:")
-                print(json.dumps(json_response, ensure_ascii=False, indent=2))
+                try:
+                    # 解码base64数据
+                    audio_data = base64.b64decode(base64_data)
+                    print(f"成功解码base64音频数据，大小: {len(audio_data)} 字节")
+                except Exception as decode_error:
+                    print(f"解码base64数据时出错: {str(decode_error)}")
+            else:
+                print("无法在JSON响应中找到音频数据。")
+                # print(json.dumps(json_response, ensure_ascii=False, indent=2))
                 return False
             
             # 处理音频数据
@@ -207,7 +189,7 @@ def text_to_speech(text, voice_type="zh_male_M392_conversation_wvae_bigtts",
 # 示例使用
 if __name__ == "__main__":
     # 测试默认参数，同时保存调试文件
-    text_to_speech("你好，世界！", save_file=True)
+    text_to_speech("我是你的AI宠物，你今天心情怎么样？", save_file=True)
     
     # 可以尝试不同的参数
     # text_to_speech("这是一段测试语音。", voice_type="zh_female_M398_conversation_wvae_bigtts", speed_ratio=1.2)
