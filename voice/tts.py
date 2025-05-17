@@ -7,18 +7,17 @@ import tempfile
 import base64
 from datetime import datetime
 import time
-
-# 需要安装playsound库: pip install playsound
+from config import Qiniu_API_KEY
 from playsound import playsound
 
-API_KEY = 'sk-375cf878c7a398585824a58f7081b3fc4430de6453b1a187ae1f4c2a99c493ca'
+API_KEY = Qiniu_API_KEY
 url = 'https://api.qnaigc.com/v1/voice/tts'
 headers = {
     'Content-Type': 'application/json',
     'Authorization': f'Bearer {API_KEY}'
 }
 
-def text_to_speech(text, voice_type="zh_male_M392_conversation_wvae_bigtts", 
+def text_to_speech(text, voice_type="en_female_anna_mars_bigtts", 
                   encoding="mp3", speed_ratio=1.0, play_immediately=True, save_file=True):
     """
     将文本转换为语音并直接播放
@@ -189,7 +188,7 @@ def text_to_speech(text, voice_type="zh_male_M392_conversation_wvae_bigtts",
 # 示例使用
 if __name__ == "__main__":
     # 测试默认参数，同时保存调试文件
-    text_to_speech("我是你的AI宠物，你今天心情怎么样？", save_file=True)
-    
+    text_to_speech("我是你的AI宠物，你今天心情怎么样？", voice_type="zh_male_M392_conversation_wvae_bigtts",save_file=True)
+    text_to_speech("Meow Meow", speed_ratio=0.6, voice_type="en_female_anna_mars_bigtts", save_file=True)
     # 可以尝试不同的参数
     # text_to_speech("这是一段测试语音。", voice_type="zh_female_M398_conversation_wvae_bigtts", speed_ratio=1.2)
