@@ -5,8 +5,8 @@ import threading
 import time
 import queue
 from playsound import playsound
-from config import QNAIGC_API_KEY
-key = QNAIGC_API_KEY
+from config import Qiniu_API_KEY
+key = Qiniu_API_KEY
 
 prior_prompt_filename = r"E:\Project\Rana\voice\prior_prompt1.txt"
 with open(prior_prompt_filename, 'r', encoding='utf-8') as file:

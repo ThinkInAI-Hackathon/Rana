@@ -1,7 +1,8 @@
 from agents import Agent, Runner, set_default_openai_client, set_default_openai_api, set_tracing_disabled
 from openai import AsyncOpenAI
-from config import QNAIGC_API_KEY
-key = QNAIGC_API_KEY
+from config import Qiniu_API_KEY
+key = Qiniu_API_KEY
+from tts import text_to_speech
 
 prior_prompt_filename = r"E:\Project\Rana\voice\prior_prompt1.txt"
 with open(prior_prompt_filename, 'r', encoding='utf-8') as file:
@@ -26,3 +27,6 @@ for i in range(5):
 
     result_black = Runner.run_sync(agent_black, instruction)
     print("小黑：", result_black.final_output)
+    text_to_speech(result_black.final_output, voice_type="zh_female_wanwanxiaohe_moon_bigtts", 
+                                        save_file=False, play_immediately=True, speed_ratio=1.0)
+     
