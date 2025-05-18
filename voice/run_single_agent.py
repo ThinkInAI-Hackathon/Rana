@@ -3,7 +3,7 @@ from openai import AsyncOpenAI
 
 key="sk-f229205ebb8205eed80025aee0c96954ecaf7323f462bc0796093a8a13f6f199"
 
-prior_prompt_filename = "prior_prompt1.txt"
+prior_prompt_filename = r"E:\Project\Rana\voice\prior_prompt1.txt"
 with open(prior_prompt_filename, 'r', encoding='utf-8') as file:
     prior_prompt1 = file.read()  # 读取整个文件内容为一个字符串
 

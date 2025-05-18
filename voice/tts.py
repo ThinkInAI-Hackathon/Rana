@@ -64,7 +64,7 @@ def text_to_speech(text, voice_type="en_female_anna_mars_bigtts",
             print("成功解析JSON响应")
             
             raw_data_field = json_response.get('data', '')
-            print("输出json:", raw_data_field)
+            # print("输出json:", raw_data_field)
             
 
             base64_data = raw_data_field
