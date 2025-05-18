@@ -188,7 +188,7 @@ def text_to_speech(text, voice_type="en_female_anna_mars_bigtts",
 # 示例使用
 if __name__ == "__main__":
     # 测试默认参数，同时保存调试文件
-    text_to_speech("我是你的AI宠物，你今天心情怎么样？", voice_type="zh_male_M392_conversation_wvae_bigtts",save_file=True)
-    text_to_speech("Meow Meow", speed_ratio=0.6, voice_type="en_female_anna_mars_bigtts", save_file=True)
+    text_to_speech("我是你的AI宠物，你今天心情怎么样？", voice_type="zh_male_naiqimengwa_mars_bigtts",save_file=True)
+    # text_to_speech("Meow Meow", speed_ratio=0.6, voice_type="en_female_anna_mars_bigtts", save_file=True)
     # 可以尝试不同的参数
     # text_to_speech("这是一段测试语音。", voice_type="zh_female_M398_conversation_wvae_bigtts", speed_ratio=1.2)
