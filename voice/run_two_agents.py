@@ -5,8 +5,8 @@ import threading
 import time
 import queue
 from playsound import playsound
-
-key="sk-f229205ebb8205eed80025aee0c96954ecaf7323f462bc0796093a8a13f6f199"
+from config import QNAIGC_API_KEY
+key = QNAIGC_API_KEY
 
 prior_prompt_filename = r"E:\Project\Rana\voice\prior_prompt1.txt"
 with open(prior_prompt_filename, 'r', encoding='utf-8') as file:
@@ -71,8 +71,8 @@ def generate_conversation(instruction, rounds=5):
         print(f"回合 {i+1} - 小白：", white_response)
         
         # 生成小白的语音文件
-        white_audio_file = text_to_speech(white_response, voice_type="zh_male_tiancaitongsheng_mars_bigtts", 
-                                        save_file=True, play_immediately=False, speed_ratio=1.2)
+        white_audio_file = text_to_speech(white_response, voice_type="ICL_zh_male_shaonianjiangjun_tob", 
+                                        save_file=True, play_immediately=False, speed_ratio=1.0)
         
         # 将小白的音频文件路径添加到队列
         audio_queue.put(white_audio_file)

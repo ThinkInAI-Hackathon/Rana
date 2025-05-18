@@ -1,7 +1,7 @@
 from agents import Agent, Runner, set_default_openai_client, set_default_openai_api, set_tracing_disabled
 from openai import AsyncOpenAI
-
-key="sk-f229205ebb8205eed80025aee0c96954ecaf7323f462bc0796093a8a13f6f199"
+from config import QNAIGC_API_KEY
+key = QNAIGC_API_KEY
 
 prior_prompt_filename = r"E:\Project\Rana\voice\prior_prompt1.txt"
 with open(prior_prompt_filename, 'r', encoding='utf-8') as file:
