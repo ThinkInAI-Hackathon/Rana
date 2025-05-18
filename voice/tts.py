@@ -98,7 +98,7 @@ def text_to_speech(text, voice_type="en_female_anna_mars_bigtts",
                 with open(debug_filename, 'wb') as f:
                     f.write(audio_data)
                 print(f"已保存音频文件: {debug_filename}")
-            
+                return debug_filename
             if play_immediately:
                 # 创建临时文件
                 temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=f'.{encoding}')
